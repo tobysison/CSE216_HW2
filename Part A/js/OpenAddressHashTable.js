@@ -45,7 +45,6 @@ export default class OpenAddressHashTable {
         return key;
     }
     
-    // @todo - YOU MUST DEFINE THIS METHOD
     getValue(key) {
         return null;
     }
@@ -54,9 +53,54 @@ export default class OpenAddressHashTable {
     removeValue(key) {   
     }
 
-    // @todo - YOU MUST DEFINE THIS METHOD
-    putValue(key, item) {
+    rehash(newLength) {
+        let temp = [];
+        temp.fill(null, 0, this.length);
+        for (let i = 0; i < this.length; i++) {
+            temp[i] = this.hashTable[i];
+        }
+        let tempLength = this.length;
+        this.length = newLength;
+        this.size = 0;
+        this.hashTable = [];
+        this.hashTable.fill(null, 0, this.length);
+        let hash, pos;
+        for (let i = 0; i < tempLength; i++) {
+            if (temp[i] == null) { continue; }
+            hash = this.hashCode(temp[i].key);
+            pos = hash;
+            do {
+                if (this.hashTable[pos] == null) {
+                    this.hashTable[pos] = temp[i];
+                    this.size++;
+                    break;
+                }
+                pos = (pos+1)%this.length;
+            } while (pos != hash);
+        }
+    }
 
+    putValue(key, item) {
+        if (this.size == 0) { this.hashTable.fill(null, 0, length); }
+        let hash = this.hashCode(key);
+        let pos = hash;
+        do {
+            if (this.hashTable[pos] == null) { 
+                this.hashTable[pos] = new KeyValuePair(key, item);
+                this.size++;
+                return;
+            }
+            if (this.hashTable[pos].key == key) {
+                this.hashTable[pos].value = item;
+                return;
+            }
+            pos = (pos+1)%this.length;
+            if (pos == hash && this.size == this.length) {
+                this.rehash(this.length*2);
+                hash = this.hashCode(key);
+                pos = hash;
+            }
+        } while (true);
     }
     
     toString() {
