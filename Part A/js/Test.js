@@ -46,6 +46,8 @@ p = hashTable.getValue(cwKey);
 console.log("\nget " + cwKey + ": " + p.toString() + "\n");
 p = hashTable.getValue(dgKey);
 console.log("\nget " + dgKey + ": " + p.toString() + "\n");
+p = hashTable.getValue("aaaaaaaa");
+console.log("\nget " + "aaaaaaaa" + ": " + p.toString() + "\n");
 
 // NOW LET'S TRY REPLACING THE DATA IN THE ABOVE THREE
 hashTable.putValue(jlKey, new Student(jlKey, "Otis", "Redding", 3.5));

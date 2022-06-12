@@ -1,3 +1,5 @@
+import { Person } from "./People.js";
+
 class KeyValuePair {
     constructor(initKey, initValue) {
         this.key = initKey;
@@ -9,6 +11,7 @@ class KeyValuePair {
     }
 }
 
+var nullPerson = new Person("null", "null", "null");
 export default class OpenAddressHashTable {
     constructor(initLength, initKeyLength) {
         this.length = initLength;
@@ -46,7 +49,18 @@ export default class OpenAddressHashTable {
     }
     
     getValue(key) {
-        return null;
+        let hash = this.hashCode(key);
+        let pos = hash;
+        do {
+            if (this.hashTable[pos] == null) {
+                return nullPerson;
+            }
+            if (this.hashTable[pos].key == key) {
+                return this.hashTable[pos].value;
+            } 
+            pos = (pos+1)%this.length;
+        } while (pos != hash);
+        return nullPerson;
     }
     
     // @todo - YOU MUST DEFINE THIS METHOD
