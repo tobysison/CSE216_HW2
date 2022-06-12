@@ -63,7 +63,6 @@ export default class OpenAddressHashTable {
         return nullPerson;
     }
     
-    // @todo - YOU MUST DEFINE THIS METHOD
     removeValue(key) {
         let hash = this.hashCode(key);
         let pos = hash;

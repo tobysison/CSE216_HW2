@@ -1,5 +1,5 @@
 import OpenAddressHashTable from "./OpenAddressHashTable.js";
-import { Person, Employee, Student } from "./People.js";
+import { Person, Employee, Student, Undergraduate } from "./People.js";
 
 const NUM_BINS = 5;
 const KEY_LENGTH = 8;
@@ -29,6 +29,8 @@ addPersonToHashTable(new Person(hashTable.generateKey(), "Chuck", "Berry"), hash
 addPersonToHashTable(new Student(hashTable.generateKey(), "Mick", "Jagger", 3.5), hashTable);
 addPersonToHashTable(new Student(hashTable.generateKey(), "Jimi", "Hendrix", 3.6), hashTable);
 addPersonToHashTable(new Person(hashTable.generateKey(), "Roger", "Waters"), hashTable);
+addPersonToHashTable(new Undergraduate(hashTable.generateKey(), "Srinesh", "Ramesh", 4.0, "U3"), hashTable);
+addPersonToHashTable(new Undergraduate(hashTable.generateKey(), "Benny", "Liu", 4.0, "U3"), hashTable);
 
 // DEMONSTRATE MAKING KEYS AND ADDING VALUES TO THE HASH TABLE    
 let jlKey = hashTable.generateKey();
@@ -56,6 +58,8 @@ hashTable.putValue(dgKey, new Student(dgKey, "Bill", "Withers", 3.4));
 printHashTable("\nAfter Changing 3 Items", hashTable);
 
 // AND DEMONSTRATE REMOVING ITEMS FROM THE BST
+hashTable.removeValue("aaaaaaaa");
+
 hashTable.removeValue(jlKey);
 printHashTable("\nAfter Removing Otis Redding", hashTable);
 
