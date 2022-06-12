@@ -64,7 +64,22 @@ export default class OpenAddressHashTable {
     }
     
     // @todo - YOU MUST DEFINE THIS METHOD
-    removeValue(key) {   
+    removeValue(key) {
+        let hash = this.hashCode(key);
+        let pos = hash;
+        do {
+            if (this.hashTable[pos] == null) {
+                console.log("\nPerson with key " + key + " was not found.\n");
+                return;
+            }
+            if (this.hashTable[pos].key == key) {
+                this.hashTable[pos] = null;
+                this.size--;
+                this.rehash(this.length);
+                return;
+            }
+            pos = (pos+1)%this.length;
+        } while (pos != hash);   
     }
 
     rehash(newLength) {
