@@ -28,6 +28,13 @@ addPersonToBST(new Person(tree.generateKey(), "Chuck", "Berry"), tree);
 addPersonToBST(new Student(tree.generateKey(), "Mick", "Jagger", 3.5), tree);
 addPersonToBST(new Student(tree.generateKey(), "Jimi", "Hendrix", 3.6), tree);
 addPersonToBST(new Person(tree.generateKey(), "Roger", "Waters"), tree);
+addPersonToBST(new Student(tree.generateKey(), "Pika", "Chu", 4.0), tree);
+addPersonToBST(new Employee(tree.generateKey(), "Ash", "Ketchum", 80000), tree);
+addPersonToBST(new Employee(tree.generateKey(), "Professor", "Oak", 40000), tree);
+addPersonToBST(new Person(tree.generateKey(), "Professor", "Birch"), tree);
+addPersonToBST(new Student(tree.generateKey(), "Trainer", "Red", 3.5), tree);
+addPersonToBST(new Student(tree.generateKey(), "League of", "Legends", 3.6), tree);
+addPersonToBST(new Person(tree.generateKey(), "RAAA", "AAAA"), tree);
 
 // DEMONSTRATE MAKING KEYS AND ADDING VALUES TO THE BST    
 let jlKey = tree.generateKey();
@@ -45,6 +52,8 @@ p = tree.getValue(cwKey);
 console.log("\nget " + cwKey + ": " + p.toString() + "\n");
 p = tree.getValue(dgKey);
 console.log("\nget " + dgKey + ": " + p.toString() + "\n");
+p = tree.getValue("aaaaaaaa");
+console.log("\nget " + "aaaaaaaa" + ": " + p.toString() + "\n");
 
 // NOW LET'S TRY REPLACING THE DATA IN THE ABOVE THREE
 tree.putValue(jlKey, new Student(jlKey, "Otis", "Redding", 3.5));
@@ -53,6 +62,8 @@ tree.putValue(dgKey, new Student(dgKey, "Bill", "Withers", 3.4));
 printBST("\nAfter Changing 3 Items", tree);
 
 // AND DEMONSTRATE REMOVING ITEMS FROM THE BST
+tree.removeValue("aaaaaaaa");
+
 tree.removeValue(jlKey);
 printBST("\nAfter Removing Otis Redding", tree);
 

@@ -82,9 +82,66 @@ export default class BinarySearchTree {
         return nullPerson;
     }
 
-    // @todo - YOU MUST DEFINE THIS METHOD
     removeValue(key) {
-
+        let tempParent = null;
+        this.removeValueHelper(this.root, key, tempParent);
+    }
+    
+    removeValueHelper(temp, key, tempParent) {
+        if (temp == null) {
+            console.log("\nPerson with key " + key + " was not found.\n");
+            return;
+        }
+        if (temp.key == key) {
+            //if temp is left child
+            if (key.localeCompare(tempParent.key) < 0) {
+                //promote left
+                if (temp.left != null) { // if temp's left exists
+                    tempParent.left = temp.left; // set parent left = left temp
+                    (tempParent.left).right = temp.right; // set promoted node's right to temp's right
+                    this.size--;
+                    return;
+                }
+                //promote right
+                if (temp.right != null) { //if temp's right exists
+                    tempParent.left = temp.right; //tempParent's left is temp's right
+                    this.size--;
+                    return;
+                }
+                //if node has no children
+                tempParent.left = null;
+                this.size--;
+                return;
+            }
+            //if temp is right child
+            if (key.localeCompare(tempParent.key) > 0) {
+                //promote left
+                if (temp.left != null) { // if temp's left exists
+                    tempParent.right = temp.left; //tempParent's right becomes temp's left
+                    (tempParent.left).right = temp.right; //tempParent's right get's temp's right
+                    this.size--;
+                    return;
+                }
+                //promote right
+                if (temp.right != null) { //if temp's right exists
+                    tempParent.right = temp.right; // tempParent's right gets temp's right
+                    this.size--;
+                    return;
+                }
+                //if node has no children
+                tempParent.right = null;
+                this.size--;
+                return;
+            }
+        }
+        if (key.localeCompare(temp.key) < 0) {
+            tempParent = temp;
+            this.removeValueHelper(temp.left, key, tempParent);
+        }
+        if (key.localeCompare(temp.key) > 0) {
+            tempParent = temp;
+            this.removeValueHelper(temp.right, key, tempParent);
+        }
     }
 
     toStringRecursively(traveller, level) {
