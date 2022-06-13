@@ -1,3 +1,5 @@
+import { Person, Employee, Student } from "./People.js";
+
 class Node {
     constructor(initKey, initData, initParent, initLeft, initRight) {
         this.key = initKey;
@@ -8,6 +10,7 @@ class Node {
     }
 };
 
+var nullPerson = new Person("NULL", "NULL", "NULL");
 export default class BinarySearchTree {
     constructor(initKeyLength) {
         this.root = null;
@@ -59,9 +62,24 @@ export default class BinarySearchTree {
         }
     }
 
-    // @todo - YOU MUST DEFINE THIS METHOD
-    getValue(key) {
-        return null;
+    getValue(key) { 
+        return this.getValueHelper(this.root, key); 
+    }
+
+    getValueHelper(temp, key) {
+        if (temp == null) {
+            return nullPerson;
+        }
+        if (temp.key == key) { 
+            return temp.data;
+        }
+        if (key.localeCompare(temp.key) < 0) {
+            return this.getValueHelper(temp.left, key);
+        }
+        if (key.localeCompare(temp.key) > 0) {
+            return this.getValueHelper(temp.right, key);
+        }
+        return nullPerson;
     }
 
     // @todo - YOU MUST DEFINE THIS METHOD
