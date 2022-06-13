@@ -15,28 +15,48 @@ export default class BinarySearchTree {
         this.keyLength = initKeyLength;
     }
 
-    // @todo - YOU MUST UPDATE THIS METHOD SO A KEY ONLY HAS LOWERCASE LETTERS, NO NUMBERS
     generateKey() {
         let key = "";
         for (let i = 0; i < this.keyLength; i++) {
-            let randomNum = Math.floor(Math.random() * 36);
+            let randomNum = Math.floor(Math.random() * 26);
             let randomChar;
-            if (randomNum < 10) {
-                randomNum += 48;
-                randomChar = String.fromCharCode(randomNum);
-            }
-            else {
-                randomNum += 55;
-                randomChar = String.fromCharCode(randomNum);
-            }
+            randomNum += 97;
+            randomChar = String.fromCharCode(randomNum);
             key += randomChar;
         }
         return key;
     }
 
-    // @todo - YOU MUST DEFINE THIS METHOD
     putValue(key, value) {
+        if (this.root == null) {
+            this.root = new Node(key, value, null, null, null);
+            this.size++;
+            return;
+        }
+        this.putValueHelper(this.root, key, value);
+    }
 
+    putValueHelper(temp, key, value) {
+        if (temp.key == key) {
+            temp.data = value;
+            return;
+        }
+        if (key.localeCompare(temp.key) < 0) {
+            if (temp.left == null) {
+                temp.left = new Node(key, value, temp, null, null);
+                this.size++;
+                return;
+            }
+            this.putValueHelper(temp.left, key, value);
+        }
+        if (key.localeCompare(temp.key) > 0) {
+            if (temp.right == null) {
+                temp.right = new Node(key, value, temp, null, null);
+                this.size++;
+                return;
+            }
+            this.putValueHelper(temp.right, key, value);
+        }
     }
 
     // @todo - YOU MUST DEFINE THIS METHOD
